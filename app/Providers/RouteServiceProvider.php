@@ -23,12 +23,21 @@ class RouteServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot(Router $router)
+    
     {
-        parent::boot($router);
-		
+    	//Versione semplice
+    	$router->model('users',\App\User::class);
+    	
+    	$router->model('articles',\App\Article::class);
+    	
+    	// se devo mettere filtri anche su campi diversi da id
+        
 		$router->bind('users', function($id) {
-			return \App\User::find($id)->firstOrFail();
+			return \App\User::where('id', $id)->firstOrFail();
 		});
+					
+					parent::boot($router);
+					
     }
 
     /**
