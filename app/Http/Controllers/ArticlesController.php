@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
+use App\Article;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\ArticleRequest;
 
 class ArticlesController extends Controller
 {
@@ -23,7 +23,7 @@ class ArticlesController extends Controller
      */
     public function index(Request $request)
     {
-        $users = Article::latest()->get();
+        $articles = Article::latest()->get();
 		if ($request->ajax() || $request->wantsJson()) {
     		return new JsonResponse($articles);
     	}
@@ -50,9 +50,10 @@ class ArticlesController extends Controller
     {
         $input = $request->all();
 		$article = Article::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => bcrypt($input['password']),
+            'title' => $input['title'],
+           'body' => $input['body'],
+			'excerpt' => $input['excerpt'],
+        
         ]);
 		
 		if ($request->ajax() || $request->wantsJson()) {
@@ -97,9 +98,15 @@ class ArticlesController extends Controller
     {
 		$input = $request->all();
 		$article->update([
-            'name' => $input['name'],
-            'password' => bcrypt($input['password']),
+				'title' => $input['title'],
+				
+				'body' => $input['body'],
+				'excerpt' => $input['excerpt'],
+				
         ]);
+		
+	
+		
 		
 		
 		if ($request->ajax() || $request->wantsJson()) {

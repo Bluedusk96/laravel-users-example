@@ -11,15 +11,25 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
+    
+    }
+    
+    $article = new App\Article();
+    $article->body = 'body';
+    $article->title = 'title';
+    $article->excerpt = 'excerpt';
+    $article->save();
+    
+    
+    
     {
         Model::unguard();
 
         // Clean up
-        DB::table('users')->delete();
+        DB::table('articles')->delete();
 		
 		// Seed
-        $this->call(UsersSeeder::class);
+        $this->call(ArticlesSeeder::class);
 
         Model::reguard();
     }
-}
